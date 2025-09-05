@@ -1,0 +1,35 @@
+:host {
+    display: flex;
+    align-items: center;
+
+    textarea[contenteditable] {
+        //padding: 20px 10px;
+        height: 100px;
+        width: 224px;
+        overflow: hidden;
+        caret-color: gray;
+    }
+
+    div[contenteditable] {
+        padding: 13px;
+        width: 224px;
+        min-height: 56px;
+
+    }
+
+
+    [contenteditable=true]:empty:before {
+        content: attr(placeholder);
+        display: block;
+        color: #939598;
+        /* For Firefox */
+    }
+
+    &[label] {
+        &[label-on-left] {
+            label {
+                margin-top: 8px;
+            }
+        }
+    }
+}

@@ -1,0 +1,324 @@
+:host{
+  padding:0;
+  margin:0;
+  .container{
+    display:flex;
+    justify-content: center;
+      align-items: center;
+    //position:fixed;
+    //top:0px;
+  }
+  .container.circular{
+    width:100%;
+    &.hideComponent{
+      opacity:0;
+    }
+    &.grab{
+     cursor:grab;
+    }
+    &.grabbing{
+      cursor:grabbing;
+      .scenariContainer{
+        transition-duration: 0ms;transition-delay: 0ms;
+      }
+    }
+    /*.scenariContainer{
+      border-radius:50%;
+        -moz-box-shadow:    inset 0 0 0px #000000;
+        -webkit-box-shadow: inset 0 0 0px #000000;
+        box-shadow:         inset 0 0 0px #000000;
+    }*/
+  }
+  .cBox{
+    position: absolute;
+    
+   // padding:0.2rem;
+  }
+  animate{
+    transition-duration: 500ms; transition-delay: 500ms;
+  }
+  .box{
+    position: relative;
+    transition-duration: 500ms; transition-delay: 500ms;
+   // padding:0.2rem;
+  }
+  .box:hover{
+    transform:scale(1.2);
+    margin:2rem;
+    position: relative;
+    transition-duration: 500ms; transition-delay: 500ms;
+  }
+  .scenariContainer{
+    display:flex;
+    position:relative;
+   // width:80%;
+   margin-bottom:2rem;
+   transition-duration:600ms; transition-delay: 500ms;
+    //height:100vh;
+    justify-content: center;
+    align-items: center;
+    /*-moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;*/
+  }
+  .scenariMask{
+    transition-duration:600ms;
+    display:flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    
+    //background-image:linear-gradient(45deg, #353535, #151515);
+
+  }
+  .scenarioBG{
+    position:absolute;
+    top:0%;
+    left:0%;
+    height:70%;
+    width:100%;
+    //overflow:hidden;
+    img{
+      width:100%;
+      transition-duration:600ms; transition-delay: 500ms;
+      opacity:0.4;
+      -webkit-filter: grayscale(1);
+      filter: grayscale(1);
+    }
+  }
+  .scenarioBG.color{
+    img{
+       -webkit-filter: unset;
+      filter: unset;
+    }
+  }
+  .scenarioBG:hover{
+    img{
+      transform: scale(1.2);
+      opacity:0.75;
+
+    }
+  }
+  #choices.hoveringScenario{
+   // margin-top:20rem;
+   background-image:linear-gradient(45deg, #35353545, #15151545);
+   /*-moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;*/
+   top:70vh;
+   height:70vh;
+  }
+  .content{
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+
+  }
+
+  .title{
+    position:relative;
+    top:20%;
+    width:80%;
+    margin:auto;
+    font-size:5rem;
+    font-weight:bold;
+    transition-duration:600ms; transition-delay: 500ms;
+
+  }
+
+  .desc{
+    position:relative;
+    opacity:0;
+    width:80%;
+    top:70%;
+    margin:auto;
+    text-align:justify;
+    //transition-delay: 350ms;
+    transition-duration:300ms; transition-delay: 500ms;
+    .text{
+      width:60%;
+    }
+  }
+  .actorImg{
+    position:absolute;
+    top:2rem;
+    left:3rem;
+    transition-duration:600ms; transition-delay: 500ms;
+
+
+    img{
+      transition-duration:600ms; transition-delay: 500ms;
+      border-radius:3rem;
+      width:3rem;
+      height:3rem;
+      opacity:0
+    }
+
+  }
+  .actions{
+    transition-duration:600ms; transition-delay: 500ms;
+    display:flex;
+    position:absolute;
+    right:-11.5rem;//100px;
+    top:24%;//75%;
+    flex-direction:column;//row;
+    opacity:0;
+    mat-icon{
+      transition-duration:600ms; transition-delay: 500ms;
+      margin:1.5em 2em;
+      transform:scale(2);
+    }
+    mat-icon:hover{
+      transform:scale(3);
+    }
+    .act{
+      cursor: pointer;
+      padding: 0 1em;
+      margin:1rem 0;
+      width:11.5rem;
+      border:2px solid white;
+    }
+    .playBox{
+      transition-duration:600ms; transition-delay: 300ms;
+      position: relative;
+      //right:-200px
+    }
+    .favBox{
+      transition-duration:600ms; transition-delay: 600ms;
+      position: relative;
+      right:-200px
+    }
+    .shareBox{
+      transition-duration:600ms; transition-delay: 900ms;
+      position: relative;
+      right:-200px
+    }
+  }
+  .TileSelection{
+   width:100vw;
+   display:flex;
+   font-size:0rem;
+   height:0px;
+  }
+  .contentHovered{
+    .title{
+      position:relative;
+      top:35%;
+    }
+    .actions{
+      right:-11.5rem;//100px;
+      opacity:1;
+      .act{
+        background-color: #00000035;
+        border-radius: 1rem;
+      }
+      .act:hover{
+        background-color: #00000075;
+        border-radius: 1rem;
+        right:150px;
+        transition-delay: 0ms;
+      }
+      .playBox{
+        right:100px
+      }
+      .shareBox{
+        right:100px
+      }
+      .favBox{
+        right:100px
+      }
+    }
+    .desc{
+      opacity:1;
+      top:40%;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  mat-icon{
+    cursor:pointer;
+    transition-duration:600ms; transition-delay: 500ms;
+  }
+
+  .scroller{
+    z-index: 600;
+  }
+  .choices{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    width:100%;
+    transition-duration:600ms;
+    
+    //background-image:linear-gradient(45deg, #353535, #151515);
+  }
+  .choicesMask{
+    //background-image:linear-gradient(45deg, #35353545, #15151545);
+  }
+  .visibleMask{
+    -webkit-overflow-scrolling: touch;
+   /* width:90%;
+     -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;*/
+  }
+  
+
+  @media only screen and (max-height: 800px) , (max-width: 800px) {
+    .title{
+      font-size:0rem;
+    }
+    .contentHovered{
+      .title{
+        font-size:2rem;
+      }
+    }
+    #choices.hoveringScenario{
+      top:90vh;
+     }
+  }
+
+  /* smartphones, touchscreens */
+  @media (hover: none) and (pointer: coarse) {
+    /* ... */
+  }
+  app-scroll{
+    ::ng-deep .container{
+      z-index:600;
+      width:3vw;
+    }
+    ::ng-deep .left{
+      background-image: linear-gradient(90deg, black, transparent);
+    }
+     ::ng-deep .right{
+      background-image: linear-gradient(90deg, transparent, black);
+    }
+    ::ng-deep .up{
+      background-image: linear-gradient(180deg, black, transparent);
+    }
+     ::ng-deep .bottom{
+      background-image: linear-gradient(0deg, transparent, black);
+    }
+  }
+  .scrollerBox{
+    transition-duration: 500ms;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    z-index:600;
+    opacity:1;
+   
+  }
+  .hideScroll{
+    z-index:-1;
+    opacity:0
+  }
+  .hide{
+    position:relative;
+    left:-400px;
+    opacity:0;
+  }
+}

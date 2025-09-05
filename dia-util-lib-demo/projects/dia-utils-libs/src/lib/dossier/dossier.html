@@ -1,0 +1,185 @@
+<div class="dossierBloc container">
+    <!--div-- class="forMobileScroll"></!--div-->
+    <div class="content-detail" *ngFor="let bloc of items; let last = last; ">
+        <div class="innerContent">
+            <div class="templateTable" *ngIf="bloc.custom && !bloc.hide">
+                <p class="title">{{bloc.title}}</p>
+                <div *ngIf="!bloc.custom else custom"></div>
+            </div>
+            <div class="templateField " *ngIf="!bloc.custom">
+                <p class="title">{{bloc.title}} </p>
+                <div class="fieldContainer {{bloc?.className}}">
+                    <ng-container *ngFor="let item of bloc.list; let i = index">
+                            @if (debug) {
+                                {{item|json }}
+
+                            }
+                        <!-- JIRA 924 - JIRA 1060 -->
+                        <div class="content col{{ item.sizeColumn }} {{item.className}}"
+                            [ngClass]="{isRatifView: ratifiable}" [matTooltip]="item.tooltip"
+                            [matTooltipPosition]="'left'">
+                            <mat-form-field (click)="onclick(item)" *ngIf="!item.hide && !modifiable"
+                                class="example-full-width"
+                                [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick}">
+                                <!--mat-label *ngIf="item.tooltip" >{{item.title}}</mat-label-->
+                                <textarea *ngIf="item.value" disabled="disabled" matInput [placeholder]="item.title||''"
+                                    [ngModel]="handleFormattedValue(item)"
+                                    cdkTextareaAutosize></textarea>
+                                <textarea *ngIf="!item.value" disabled="disabled" matInput [placeholder]="item.title||''"
+                                    [ngModel]="'--'" cdkTextareaAutosize></textarea>
+                            </mat-form-field>
+                            <div *ngIf="!item.hide">
+                                <div class="modifiable"
+                                    *ngIf="modifiable && !item.isDate && !item.custom && !item.isRadio && !item.selectValues && !item.advancedCustoms"
+                                    (click)="onclick(item)">
+                                    <dia-input *ngIf="!item.formGroupConfig" [icon]="item.icon"  appIsNumeric
+                                    [disable]="!item.isNumber" [isDecimal]="item.isDecimal"
+                                        [iconAction]="item.iconAction" 
+                                        (valueChange)="handleChange($event, item)"
+                                        [visualHelpDisabled]="item.disableVisualHelp" [maxLength]="item.maxLength"
+                                        [minLength]="item.minLength" [required]="item.required"
+                                        [customFormat]="item.customFormat" [readonly]="item.disabled"
+                                        [placeholder]="item.title"
+                                        [value]="handleValue(item)"
+                                        (valueChange)="handleChange($event, item)"
+                                        [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"
+                                        [type]="item.type"></dia-input>
+                                    <div class="modifiable" *ngIf="item.formGroupConfig">
+                                        <form [formGroup]="item.formGroupConfig.form">
+                                            <!--{{item.formGroupConfig.form.con trols[item.formGroupConfig.formName].errors|json}}-->
+                                            <dia-input [readonly]="item.disabled" appIsNumeric
+                                                [disable]="!item.isNumber" [isDecimal]="item.isDecimal"
+                                                [icon]="item.icon" [iconAction]="item.iconAction"
+                                                (valueChange)="handleChange($event, item)"
+                                                [visualHelpDisabled]="item.disableVisualHelp"
+                                                [customFormat]="item.customFormat" [maxLength]="item.maxLength"
+                                                [minLength]="item.minLength" [placeholder]="item.title"
+                                                [name]="item?.formGroupConfig?.formName"
+                                                formControlName="{{item?.formGroupConfig?.formName}}"
+                                                [value]="handleValue(item)"
+                                                (valueChange)="handleChange($event, item)"
+                                                [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"
+                                                [type]="item.type"></dia-input>
+                                            <mat-error *ngIf="item.getErrorMsg">
+                                                {{ item.getErrorMsg(item)}}
+                                            </mat-error>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modifiable" *ngIf="(modifiable || item.modifiable) && item.isTextarea"
+                                    (click)="onclick(item)">
+                                    <dia-textarea *ngIf="!item.formGroupConfig" [icon]="item?.icon||''"
+                                        [countDown]="item.countDown" appIsNumeric [disabled]="!item.isNumber"
+                                        [iconAction]="item.iconAction|| emptyfn" (valueChange)="handleChange($event, item)"
+                                        [maxLength]="item.maxLength" [required]="item.required"
+                                        [customFormat]="item.customFormat" [readonly]="item.disabled"
+                                        [placeholder]="item.placeholder? item.placeholder: item.title"
+                                        [value]="handleValue(item)"
+                                        (valueChange)="handleChange($event, item)"
+                                        [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled, fill:item.fill}"
+                                        class="{{item.customClass}}" [minrows]="minrows"></dia-textarea>
+                                    <div class="modifiable" *ngIf="item.formGroupConfig">
+                                        <form [formGroup]="item.formGroupConfig.form">
+                                            <!--{{item.formGroupConfig.form.con trols[item.formGroupConfig.formName].errors|json}}-->
+                                            <dia-textarea [readonly]="item.disabled" appIsNumeric
+                                                [disabled]="!item.isNumber" [countDown]="item.countDown"
+                                                [icon]="item.icon||''" [iconAction]="item.iconAction|| emptyfn"
+                                                (valueChange)="handleChange($event, item)"
+                                                [customFormat]="item.customFormat" [maxLength]="item.maxLength"
+                                                [placeholder]="item.placeholder? item.placeholder: item.title"
+                                                [name]="item?.formGroupConfig?.formName"
+                                                formControlName="{{item?.formGroupConfig?.formName}}"
+                                                [value]="handleValue(item)"
+                                                (valueChange)="handleChange($event, item)"
+                                                [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled, fill:item.fill}"
+                                                class="{{item.customClass}}" [minrows]="minrows"></dia-textarea>
+                                            <mat-error *ngIf="item.getErrorMsg">
+                                                {{ item.getErrorMsg(item)}}
+                                            </mat-error>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modifiable" *ngIf="modifiable && item.isDate" (click)="onclick(item)">
+                                    <dia-input-date-picker *ngIf="!item.formGroupConfig" [required]="item.required||false"
+                                        [placeholder]="item.title||''" [date]="handleDateValue(item)" (dateChange)="handleChange($event, item)" [minDate]="item.minDate"
+                                        [maxDate]="item.maxDate"
+                                        [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-input-date-picker>
+                                    <div class="modifiable" *ngIf="item.formGroupConfig">
+                                        <form [formGroup]="item.formGroupConfig.form">
+                                            <dia-input-date-picker [label]="item.title||''" [required]="item.required||false"
+                                                [minDate]="item.minDate" [maxDate]="item.maxDate"
+                                                formControlName="{{item?.formGroupConfig?.formName}}"
+                                                [date]="handleDateValue(item)" (dateChange)="handleChange($event, item)"
+                                                [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-input-date-picker>
+                                        </form>
+                                    </div>
+                                    <mat-error *ngIf="item.getErrorMsg">
+                                        {{ item.getErrorMsg(item)}}
+                                    </mat-error>
+                                </div>
+                                <div class="modifiable" *ngIf="modifiable && item.selectValues" (click)="onclick(item)">
+                                    <dia-select *ngIf="!item.formGroupConfig" [required]="item.required||false"
+                                        [placeholder]="item.title"
+                                        [list]="item.selectValues" [value]="handleSelectValue(item)"
+                                        (valueChange)="handleChange($event, item)"
+                                        [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-select>
+                                    <div class="modifiable" *ngIf="item.formGroupConfig">
+                                        <form [formGroup]="item.formGroupConfig.form">
+                                            <dia-select [label]="item.title" [required]="item.required||false"
+                                                (valueChange)="handleChange($event, item)" [list]="item.selectValues"
+                                                [value]="handleSelectValue(item)"
+                                                formControlName="{{item?.formGroupConfig?.formName}}"
+                                                [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-select>
+                                        </form>
+                                    </div>
+                                    <mat-error *ngIf="item.getErrorMsg">
+                                        {{ item.getErrorMsg(item)}}
+                                    </mat-error>
+                                </div>
+                                <div class="modifiable radio Margin1em" *ngIf="modifiable && item.isRadio && item.formGroupConfig?.form"
+                                    (click)="onclick(item)">
+                                    <form [formGroup]="item.formGroupConfig?.form||fgroup()" class="radioBlock">
+                                        <div class="radioLbl">
+                                            <mat-label>{{item.title}}</mat-label><mat-label *ngIf="item.required">*
+                                            </mat-label>:
+                                        </div>
+                                        <div
+                                            class="radioChoices {{item.disabled?'radioBoxDisabled':'radioBoxEnabled'}}">
+                                            <div class="choice" *ngFor="let v of item.possibleValues; let i = index">
+                                                <input type="radio"
+                                                    class=" inputRadio {{item.disabled?'radioDisabled':'radioLbl'}}"
+                                                    [value]="v.value" [name]="item?.formGroupConfig?.formName || ''"
+                                                    formControlName="{{item?.formGroupConfig?.formName}}"
+                                                    value="v.libelle" [disabled]="item.disabled||false" />
+                                                <mat-label
+                                                    class="ecD-form-label-radio {{item.disabled?'radioDisabled':'radioLbl'}}">{{v.libelle}}</mat-label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <mat-error *ngIf="item.getErrorMsg">
+                                        {{ item.getErrorMsg(item)}}
+                                    </mat-error>
+                                </div>
+                                <div class="modifiable" *ngIf="modifiable && item.custom" (click)="onclick(item)">
+                                    <div *ngIf="!item.custom else custom"></div>
+                                </div>
+                                <div class="modifiable" *ngIf="item.advancedCustoms" (click)="onclick(item)">
+                                    <ng-container #advancedCustom *ngFor="let custom of item.advancedCustoms">
+                                        <div class="containerAdvanced"><!-- (click)="advancedClicked(custom)" -->
+                                            <ng-container
+                                                *ngTemplateOutlet="custom.template; context: {$implicit: custom.context}"></ng-container>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- JIRA 1060 -->
+                        <div class="returnLine" *ngIf="nbColumns && item.indexColumn && item.indexColumn % nbColumns === 0"></div>
+                    </ng-container>
+                </div>
+                <p *ngIf="!last && !bloc?.noLine" class="content-detail-line"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #custom> <ng-content></ng-content> </ng-template>

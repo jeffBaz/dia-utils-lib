@@ -1,0 +1,17 @@
+{
+  "name": "dia-utils-libs",
+  "version": "0.0.15",
+  "main": "./fesm2022/dia-utils-libs.mjs",
+  "module": "./fesm2022/dia-utils-libs.mjs",
+  "es2022": "./fesm2022/dia-utils-libs.mjs",
+  "fesm2022": "./fesm2022/dia-utils-libs.mjs",
+  "typings": "./index.d.ts",
+  "metadata": "./dia-utils-libs.metadata.json",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./fesm2022/dia-utils-libs.mjs",
+      "types": "./index.d.ts"
+    }
+  }
+}

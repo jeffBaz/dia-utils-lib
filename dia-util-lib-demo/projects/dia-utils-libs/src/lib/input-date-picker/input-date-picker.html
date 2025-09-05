@@ -1,0 +1,31 @@
+<div class="container" (click)="onTouched()">
+    <!-- mat-form-field appearance="outline" (click)="picker.open()"-->
+    <div (click)="picker.open()">
+      <!-- <mat-label
+        *ngIf="label"
+        [innerHTML]="label"
+        [ngClass]="['formlabel']"
+      ></mat-label> -->
+      <dia-input
+        [isDateControl]="true"
+        [required]="required"
+        [matDatepicker]="picker"
+        [minDate]="minDate?.getTime()||0"
+        [maxDate]="maxDate?.getTime()||0"
+        [placeholder]="placeholder"
+        [formControl]="formControlDate"
+        (dateChange)="onChange()"
+        [icon]="'calendar_today'"
+        [visualHelpDisabled]="true"
+      >
+      </dia-input>
+     <!--  <mat-icon matSuffix>calendar_today</mat-icon> -->
+      <mat-datepicker
+        #picker
+        (closed)="popupVisible = false"
+        (opened)="popupVisible = true"
+      ></mat-datepicker>
+    <!--/mat-form-field-->
+    </div>
+  </div>
+  

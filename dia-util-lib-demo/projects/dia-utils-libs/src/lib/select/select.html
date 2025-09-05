@@ -1,0 +1,16 @@
+<div class="zone-select" appClickedOutside [hasleftFor]="autoClosedAfter" (hasLeft)="select?.close()" [matTooltip]="tooltipValue">
+  <div class="zone-description">
+    <mat-form-field #formField appearance="outline" [floatLabel]="floatLabel">
+      <mat-label *ngIf="label" [ngClass]="['formlabel']">{{label}}</mat-label>
+      <mat-label class="my-class-name" *ngIf="fixPlaceholder">{{getPlaceHolder()}}</mat-label>
+      <mat-select *ngIf="multiple" #select (blur)="onTouched($event)" [disabled]="disabled" [placeholder]="getPlaceHolder()||''" [multiple]="multiple" [value]="value" (valueChange)="onUpdateValue($event)" [required]="required" cdkTextareaAutosize>
+        <mat-option *ngFor="let topping of list" [value]="topping" (onSelectionChange)="itemSelected($event, topping)">{{topping?.libelle ? topping?.libelle: topping}}</mat-option>
+      </mat-select>
+      <mat-select *ngIf="!multiple" #select (blur)="onTouched($event)" [disabled]="disabled" [placeholder]="getPlaceHolder()||''" [(value)]="value" (valueChange)="onUpdateValue($event)" [required]="required" cdkTextareaAutosize>
+        <mat-option *ngIf="defaultValue" class="defaultValue"></mat-option>
+        <mat-option *ngFor="let topping of list" [value]="topping" >{{topping?.libelle ? topping?.libelle: topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="description" class="description" [innerHTML]="description"></div>
+  </div>
+</div>

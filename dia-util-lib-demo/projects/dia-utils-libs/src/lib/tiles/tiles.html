@@ -1,0 +1,40 @@
+<div class="container"
+  [ngClass]="{circular:circularEffect, grabbing:grabbing, grab:!grabbing, hideComponent:circularEffect && !isCircularInitated}"
+  #container (window:resize)="resetTunnel()">
+  <div id="choices" class="choices" (mousewheel)="circularEffect? null:onmouseWheel($event)"
+    (panstart)="panStart($event)" (pan)="panMoving($event)" (panend)="panEnd($event)" (mousemove)="mouseMove($event)"
+    (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" (mouseleave)="mouseLeave($event)">
+    <div class="choicesMask">
+      <div class="TileSelection">{{title}}</div>
+      <div class="scenariContainer" #scenariContainer>
+        <div class="visibleMask">
+          <div class="scenariMask" #scenariMask (mousewheel)="circularEffect? null:onmouseWheel($event)"
+            (swipeleft)="circularEffect? null:scrolledLeft($event)"
+            (swiperight)="circularEffect? null:scrolledRight($event)">
+            <ng-container *ngFor="let scenario of tiles; let i = index;">
+              <div *ngIf="!scenario.empty"
+                [ngClass]="{box:!circularEffect, cBox:circularEffect, animate:isCircularInitated, selected: scenario === selectedTile}"
+                #tile (mouseleave)="left(scenario)" (click)="clicked(i, scenario)">
+                <ng-container
+                  *ngTemplateOutlet="tileTemplate; context: {$implicit: scenario, itemIndex:i, carouselIndex:i, selected: scenario === selectedTile}"></ng-container>
+              </div>
+              <div *ngIf="scenario.empty"
+                [ngClass]="{box:!circularEffect, cBox:circularEffect, emptyTile:scenario.empty}" #tile
+                (mouseleave)="left(scenario)" (click)="clicked(i, scenario)">
+                <ng-container
+                  *ngTemplateOutlet="emptyTpl; context: {$implicit: scenario, selected: scenario === selectedTile, context: {$implicit: scenario, itemIndex:i, carouselIndex:i}}"></ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollerBox" [ngClass]="{hideScroll:!active}" #hoster (mousewheel)="onmouseWheel($event)">
+    <!--div class="box hide" >
+          <ng-container  *ngTemplateOutlet="tileTemplate; context: {$implicit: tiles[0]}"></ng-container>
+      </div-->
+    <dia-scroll class="scroller" #scroller (scrolledLeft)="scrolledLeft($event)" [scrollBuffer]="5"
+      (scrolledRight)="scrolledRight($event)" [forced]="isMobile" [vertical]=false></dia-scroll>
+  </div>
+</div>

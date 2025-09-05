@@ -1,0 +1,13 @@
+mat-form-field {
+    width: 100%;
+}
+    
+.mat-mdc-option.mdc-list-item{
+    background-color: white;
+    &:hover{    
+        background-color: gray;
+    }
+}
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple){
+    background-color: gray;
+}

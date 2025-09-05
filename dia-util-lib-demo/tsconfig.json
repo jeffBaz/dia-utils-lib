@@ -1,0 +1,52 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "dia-util-lib": [
+        "dist/dia-util-lib/dia-util-lib",
+        "dist/dia-util-lib"
+      ],
+      "dia-utils-lib": [
+        "dist/dia-utils-lib/dia-utils-lib",
+        "dist/dia-utils-lib"
+      ],
+      "dia-utils-libs": ["projects/dia-utils-libs/src/public-api.ts"]
+    },
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dia-utils-libs/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dia-utils-libs/tsconfig.spec.json"
+    }
+  ]
+}

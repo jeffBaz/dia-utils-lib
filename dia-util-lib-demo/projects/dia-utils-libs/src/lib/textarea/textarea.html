@@ -1,0 +1,38 @@
+<div class="zone-description">
+    <!--div contenteditable="true" #div [attr.placeholder]="placeholder" [name]="label" [ngModel]="value" (ngModelChange)="change(div.innerText)" ngDefaultControl>
+		<ng-content></ng-content>
+  </div-->
+    <div *ngIf="!isTextArea && readonly" contenteditable="false" #div [attr.placeholder]="placeholder" [name]="label"
+        [innerHTML]="innerHTML" [ngModel]="value" (ngModelChange)="change(div.innerText)" ngDefaultControl>
+        <mat-label *ngIf="label">{{label}}</mat-label>
+        <ng-content></ng-content>
+    </div>
+    <div *ngIf="!isTextArea && !readonly" contenteditable="true" #div [attr.placeholder]="placeholder" [name]="label"
+        [innerHTML]="innerHTML" [ngModel]="value" (ngModelChange)="change(div.innerText)" ngDefaultControl>
+        <mat-label *ngIf="label">{{label}}</mat-label>
+        <ng-content></ng-content>
+    </div>
+    <div *ngIf="isTextArea && formGroup" [formGroup]="formGroup">
+        <mat-form-field *ngIf="isTextArea" appearance="outline">
+            <mat-label *ngIf="label">{{label}}</mat-label>
+            <textarea matInput #textarea *ngIf="isTextArea" [readonly]="readonly" [attr.rows]="minrows"
+                [attr.name]="name ? name : 'textarea'" [attr.disabled]="disabled ? '' : null"
+                [attr.maxLength]="maxLength" [formControlName]="formControlName" contenteditable="contenteditable"
+                matInput [ngModel]="value" (ngModelChange)="change($event)" [name]="label" [placeholder]="placeholder||''"
+                (blur)="onTouched($event)" cdkTextareaAutosize></textarea>
+        </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="isTextArea && !formGroup" appearance="outline">
+        <mat-label *ngIf="label">{{label}}</mat-label>
+        <textarea matInput #textarea *ngIf="isTextArea" [readonly]="readonly" [attr.rows]="minrows"
+            [attr.name]="name ? name : 'textarea'" [attr.disabled]="disabled ? '' : null" [attr.maxLength]="maxLength"
+            (blur)="onTouched($event)" contenteditable="contenteditable" matInput [ngModel]="value"
+            (ngModelChange)="change($event)" [name]="label" [placeholder]="placeholder||''" cdkTextareaAutosize></textarea>
+        <div class="countdown" *ngIf="countDown">{{count + '/' + maxLength}}</div>
+    </mat-form-field>
+    <div *ngIf="description" class="description" [innerHTML]="description"></div>
+    <mat-icon *ngIf="icon" matSuffix (click)="iconClicked($event)" (dblclick)="dblClicked($event)">{{ icon }}</mat-icon>
+    <span matSuffix *ngIf="unit" class="input-unit" align="end">{{
+        unit
+        }}</span>
+</div>

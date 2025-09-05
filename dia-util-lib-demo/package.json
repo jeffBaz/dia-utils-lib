@@ -1,0 +1,78 @@
+{
+  "name": "dia-utils-libs",
+  "version": "0.0.6",
+  "description": "DIA Utils Library v20",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --port 4201",
+    "build": "ng build",
+    "buildLib": "ng build dia-utils-libs --prod ",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "blib": "npm i && npm run build dia-utils-libs && cd dist/dia-utils-libs && npm pack",
+    "publish": "npm run blib && npm publish",
+    "packagr": "ng-packagr -p ./projects/dia-utils-libs/ng-package.json",
+    "serve:ssr:dia-util-lib-demo": "node dist/dia-util-lib-demo/server/server.mjs",
+    "lint": "ng lint"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": false,
+  "keywords": [
+    "angular",
+    "utils",
+    "components"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/forms": "^20.1.0",
+    "@angular/material": "^20.1.0"
+  },
+  "dependencies": {
+    "@angular/animations": "^20.1.0",
+    "@angular/cdk": "^20.1.0",
+    "@angular/common": "^20.1.0",
+    "@angular/compiler": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/forms": "^20.1.0",
+    "@angular/material": "^20.1.0",
+    "@angular/platform-browser": "^20.1.0",
+    "@angular/platform-server": "^20.1.0",
+    "@angular/router": "^20.1.0",
+    "@angular/ssr": "^20.1.6",
+    "express": "^5.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^20.1.6",
+    "@angular/build": "^20.1.6",
+    "@angular/cli": "^20.1.6",
+    "@angular/compiler-cli": "^20.1.0",
+    "@types/express": "^5.0.1",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.17.19",
+    "angular-eslint": "20.2.0",
+    "eslint": "^9.33.0",
+    "jasmine-core": "~5.8.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^20.0.0",
+    "typescript": "~5.8.2",
+    "typescript-eslint": "8.40.0"
+  }
+}

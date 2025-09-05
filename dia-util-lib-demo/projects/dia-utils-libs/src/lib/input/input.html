@@ -1,0 +1,94 @@
+<!--div *ngIf="label" [innerHTML]="label" [ngClass]="['formlabel']"></div-->
+<div class="zone-description" [ngClass]="{inputAsLabel:displayAsLabel}" [matTooltip]="tooltipText">
+  <mat-form-field appearance="outline" [ngClass]="{hidden: hidden,  datePickerInput:isDateControl}" >
+    <mat-label>{{ placeholder ? placeholder : label ? label : '                  ' }}</mat-label>
+
+    <input
+      matInput
+      #formatInput
+      name="formatInput"
+      *ngIf="format || customFormat"
+      [attr.hidden]="hidden"
+      [ngModel]="formattedValue"
+      (keyup)="changeFormat($event.target)"
+      (blur)="onTouched($event)"
+      [attr.disabled]="disabled ? '' : null"
+      [attr.type]="type"
+      [attr.min]="min"
+      [attr.max]="max"
+      [required]="required||false"
+      [readonly]="readonly||false"
+      autocomplete="off"
+    />
+
+    <input
+      matInput
+      *ngIf="!defaultControl && !isDateControl"
+      #input
+      [attr.hidden]="hidden || format || customFormat"
+      [attr.name]="name ? name : 'input'"
+      [ngModel]="value"
+      (ngModelChange)="change($event)"
+      (blur)="onTouched($event)"
+      [attr.disabled]="disabled ? '' : null"
+      [attr.type]="type"
+      [attr.min]="min"
+      [attr.max]="max"
+      [required]="required||false"
+      [readonly]="readonly||false"
+      autocomplete="off"
+    />
+    <input
+      matInput
+      *ngIf="defaultControl && !isDateControl"
+      #input
+      [attr.hidden]="hidden || format || customFormat"
+      [ngModel]="value"
+      (ngModelChange)="change($event)"
+      (blur)="onTouched($event)"
+      [attr.disabled]="disabled ? '' : null"
+      [attr.type]="type"
+      [attr.name]="name ? name : 'input'"
+      [attr.min]="min"
+      [attr.max]="max"
+      [formControl]="formControl"
+      [required]="required||false"
+      autocomplete="off"
+    />
+
+  <input
+    matInput
+    *ngIf="isDateControl"
+    #input
+    [attr.hidden]="hidden || format || customFormat"
+    [attr.name]="name ? name : 'input'"
+    [ngModel]="value"
+    (ngModelChange)="change($event)"
+    (blur)="onTouched($event)"
+    [attr.disabled]="disabled ? '' : null"
+    [attr.type]="type"
+    [min]="minDate"
+    [max]="maxDate"
+    [required]="required||false"
+    [readonly]="readonly||false"
+    autocomplete="off"
+    (dateChange)="f_dateChange()"
+  />
+    <mat-icon class="clickable" *ngIf="cancellable && value" (click)="cancel($event)" matSuffix
+      >highlight_off</mat-icon>
+    <mat-icon *ngIf="searching && !value" matSuffix>search</mat-icon>
+    <mat-icon *ngIf="icon" matSuffix (click)="iconClicked($event)" (dblclick)="dblClicked($event)">{{ icon }}</mat-icon>
+    <span matSuffix *ngIf="unit" class="input-unit" align="end">{{
+      unit
+    }}</span>
+    <div
+      *ngIf="description"
+      class="description"
+      [innerHTML]="description"
+    ></div>
+    <ng-content></ng-content>
+  </mat-form-field>
+</div>
+<div id="hidden" #computeWidth>
+    {{value}}
+  </div>

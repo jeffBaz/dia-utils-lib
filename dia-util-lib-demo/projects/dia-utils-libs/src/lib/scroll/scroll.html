@@ -1,0 +1,15 @@
+<div class="container up" *ngIf="vertical && !scrolledUpDisabled" [ngClass]="{containerForced: forced, upForced: forced}" (click)="scrolled(true)" >
+  <mat-icon >keyboard_arrow_up</mat-icon>
+</div>
+
+<div class="container down" *ngIf="vertical && !scrolledDownDisabled" [ngClass]="{containerForced: forced, downForced: forced}" (click)="scrolled(false)">
+  <mat-icon >keyboard_arrow_down</mat-icon>
+</div>
+
+<div class="container left" *ngIf="horizontal && !scrolledLeftDisabled" [ngClass]="{containerForced: forced, leftForced: forced}" (click)="scrolledH(true)" >
+    <mat-icon >keyboard_arrow_left</mat-icon>
+  </div>
+
+  <div class="container right" *ngIf="horizontal  && !scrolledRightDisabled" [ngClass]="{containerForced: forced, rightForced: forced}" (click)="scrolledH(false)">
+    <mat-icon >keyboard_arrow_right</mat-icon>
+  </div>
