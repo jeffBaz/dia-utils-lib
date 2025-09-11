@@ -10,10 +10,10 @@
                 <p class="title">{{bloc.title}} </p>
                 <div class="fieldContainer {{bloc?.className}}">
                     <ng-container *ngFor="let item of bloc.list; let i = index">
-                            @if (debug) {
-                                {{item|json }}
+                        @if (debug) {
+                        {{item|json }}
 
-                            }
+                        }
                         <!-- JIRA 924 - JIRA 1060 -->
                         <div class="content col{{ item.sizeColumn }} {{item.className}}"
                             [ngClass]="{isRatifView: ratifiable}" [matTooltip]="item.tooltip"
@@ -23,24 +23,21 @@
                                 [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick}">
                                 <!--mat-label *ngIf="item.tooltip" >{{item.title}}</mat-label-->
                                 <textarea *ngIf="item.value" disabled="disabled" matInput [placeholder]="item.title||''"
-                                    [ngModel]="handleFormattedValue(item)"
-                                    cdkTextareaAutosize></textarea>
-                                <textarea *ngIf="!item.value" disabled="disabled" matInput [placeholder]="item.title||''"
-                                    [ngModel]="'--'" cdkTextareaAutosize></textarea>
+                                    [ngModel]="handleFormattedValue(item)" cdkTextareaAutosize></textarea>
+                                <textarea *ngIf="!item.value" disabled="disabled" matInput
+                                    [placeholder]="item.title||''" [ngModel]="'--'" cdkTextareaAutosize></textarea>
                             </mat-form-field>
                             <div *ngIf="!item.hide">
                                 <div class="modifiable"
-                                    *ngIf="modifiable && !item.isDate && !item.custom && !item.isRadio && !item.selectValues && !item.advancedCustoms"
+                                    *ngIf="modifiable && !item.isDate && !item.custom && !item.isRadio && !item.isCheckbox &&  !item.selectValues && !item.advancedCustoms"
                                     (click)="onclick(item)">
-                                    <dia-input *ngIf="!item.formGroupConfig" [icon]="item.icon"  appIsNumeric
-                                    [disable]="!item.isNumber" [isDecimal]="item.isDecimal"
-                                        [iconAction]="item.iconAction" 
-                                        (valueChange)="handleChange($event, item)"
+                                    <dia-input *ngIf="!item.formGroupConfig" [icon]="item.icon" appIsNumeric
+                                        [disable]="!item.isNumber" [isDecimal]="item.isDecimal"
+                                        [iconAction]="item.iconAction" (valueChange)="handleChange($event, item)"
                                         [visualHelpDisabled]="item.disableVisualHelp" [maxLength]="item.maxLength"
                                         [minLength]="item.minLength" [required]="item.required"
                                         [customFormat]="item.customFormat" [readonly]="item.disabled"
-                                        [placeholder]="item.title"
-                                        [value]="handleValue(item)"
+                                        [placeholder]="item.title" [value]="handleValue(item)"
                                         (valueChange)="handleChange($event, item)"
                                         [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"
                                         [type]="item.type"></dia-input>
@@ -56,8 +53,7 @@
                                                 [minLength]="item.minLength" [placeholder]="item.title"
                                                 [name]="item?.formGroupConfig?.formName"
                                                 formControlName="{{item?.formGroupConfig?.formName}}"
-                                                [value]="handleValue(item)"
-                                                (valueChange)="handleChange($event, item)"
+                                                [value]="handleValue(item)" (valueChange)="handleChange($event, item)"
                                                 [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"
                                                 [type]="item.type"></dia-input>
                                             <mat-error *ngIf="item.getErrorMsg">
@@ -70,12 +66,12 @@
                                     (click)="onclick(item)">
                                     <dia-textarea *ngIf="!item.formGroupConfig" [icon]="item?.icon||''"
                                         [countDown]="item.countDown" appIsNumeric [disabled]="!item.isNumber"
-                                        [iconAction]="item.iconAction|| emptyfn" (valueChange)="handleChange($event, item)"
-                                        [maxLength]="item.maxLength" [required]="item.required"
-                                        [customFormat]="item.customFormat" [readonly]="item.disabled"
+                                        [iconAction]="item.iconAction|| emptyfn"
+                                        (valueChange)="handleChange($event, item)" [maxLength]="item.maxLength"
+                                        [required]="item.required" [customFormat]="item.customFormat"
+                                        [readonly]="item.disabled"
                                         [placeholder]="item.placeholder? item.placeholder: item.title"
-                                        [value]="handleValue(item)"
-                                        (valueChange)="handleChange($event, item)"
+                                        [value]="handleValue(item)" (valueChange)="handleChange($event, item)"
                                         [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled, fill:item.fill}"
                                         class="{{item.customClass}}" [minrows]="minrows"></dia-textarea>
                                     <div class="modifiable" *ngIf="item.formGroupConfig">
@@ -89,8 +85,7 @@
                                                 [placeholder]="item.placeholder? item.placeholder: item.title"
                                                 [name]="item?.formGroupConfig?.formName"
                                                 formControlName="{{item?.formGroupConfig?.formName}}"
-                                                [value]="handleValue(item)"
-                                                (valueChange)="handleChange($event, item)"
+                                                [value]="handleValue(item)" (valueChange)="handleChange($event, item)"
                                                 [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled, fill:item.fill}"
                                                 class="{{item.customClass}}" [minrows]="minrows"></dia-textarea>
                                             <mat-error *ngIf="item.getErrorMsg">
@@ -100,14 +95,16 @@
                                     </div>
                                 </div>
                                 <div class="modifiable" *ngIf="modifiable && item.isDate" (click)="onclick(item)">
-                                    <dia-input-date-picker *ngIf="!item.formGroupConfig" [required]="item.required||false"
-                                        [placeholder]="item.title||''" [date]="handleDateValue(item)" (dateChange)="handleChange($event, item)" [minDate]="item.minDate"
-                                        [maxDate]="item.maxDate"
+                                    <dia-input-date-picker *ngIf="!item.formGroupConfig"
+                                        [required]="item.required||false" [placeholder]="item.title||''"
+                                        [date]="handleDateValue(item)" (dateChange)="handleChange($event, item)"
+                                        [minDate]="item.minDate" [maxDate]="item.maxDate"
                                         [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-input-date-picker>
                                     <div class="modifiable" *ngIf="item.formGroupConfig">
                                         <form [formGroup]="item.formGroupConfig.form">
-                                            <dia-input-date-picker [label]="item.title||''" [required]="item.required||false"
-                                                [minDate]="item.minDate" [maxDate]="item.maxDate"
+                                            <dia-input-date-picker [label]="item.title||''"
+                                                [required]="item.required||false" [minDate]="item.minDate"
+                                                [maxDate]="item.maxDate"
                                                 formControlName="{{item?.formGroupConfig?.formName}}"
                                                 [date]="handleDateValue(item)" (dateChange)="handleChange($event, item)"
                                                 [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-input-date-picker>
@@ -119,9 +116,8 @@
                                 </div>
                                 <div class="modifiable" *ngIf="modifiable && item.selectValues" (click)="onclick(item)">
                                     <dia-select *ngIf="!item.formGroupConfig" [required]="item.required||false"
-                                        [placeholder]="item.title"
-                                        [list]="item.selectValues" [value]="handleSelectValue(item)"
-                                        (valueChange)="handleChange($event, item)"
+                                        [placeholder]="item.title" [list]="item.selectValues"
+                                        [value]="handleSelectValue(item)" (valueChange)="handleChange($event, item)"
                                         [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled}"></dia-select>
                                     <div class="modifiable" *ngIf="item.formGroupConfig">
                                         <form [formGroup]="item.formGroupConfig.form">
@@ -136,7 +132,8 @@
                                         {{ item.getErrorMsg(item)}}
                                     </mat-error>
                                 </div>
-                                <div class="modifiable radio Margin1em" *ngIf="modifiable && item.isRadio && item.formGroupConfig?.form"
+                                <div class="modifiable radio Margin1em"
+                                    *ngIf="modifiable && item.isRadio && item.formGroupConfig?.form"
                                     (click)="onclick(item)">
                                     <form [formGroup]="item.formGroupConfig?.form||fgroup()" class="radioBlock">
                                         <div class="radioLbl">
@@ -160,6 +157,26 @@
                                         {{ item.getErrorMsg(item)}}
                                     </mat-error>
                                 </div>
+                                <div class="modifiable checkbox Margin1em"
+                                    *ngIf="modifiable && item.isCheckbox && item.formGroupConfig?.form"
+                                    (click)="onclick(item)">
+                                    <form [formGroup]="item.formGroupConfig?.form||fgroup()" class="checkBoxBlock">
+                                        <div
+                                            class="checkBoxChoices {{item.disabled?'checkBoxBoxDisabled':'checkBoxBoxEnabled'}}">
+                                                <mat-checkbox class="inputCheckbox" [checked]="item.value"
+                                                    [indeterminate]="handleIndeterminate(item)"
+                                                    (change)="handleCheckedChange($event.checked, item)"
+                                                    formControlName="{{item?.formGroupConfig?.formName}}"
+                                                    [disabled]="item.disabled||false">
+                                                    {{item.title}}
+                                                </mat-checkbox>
+                                                
+                                        </div>
+                                    </form>
+                                    <mat-error *ngIf="item.getErrorMsg">
+                                        {{ item.getErrorMsg(item)}}
+                                    </mat-error>
+                                </div>
                                 <div class="modifiable" *ngIf="modifiable && item.custom" (click)="onclick(item)">
                                     <div *ngIf="!item.custom else custom"></div>
                                 </div>
@@ -174,7 +191,8 @@
                             </div>
                         </div>
                         <!-- JIRA 1060 -->
-                        <div class="returnLine" *ngIf="nbColumns && item.indexColumn && item.indexColumn % nbColumns === 0"></div>
+                        <div class="returnLine"
+                            *ngIf="nbColumns && item.indexColumn && item.indexColumn % nbColumns === 0"></div>
                     </ng-container>
                 </div>
                 <p *ngIf="!last && !bloc?.noLine" class="content-detail-line"></p>

@@ -77,6 +77,17 @@ export class App {
             validators: [Validators.required]
           }
         }
+      )),
+      (Dossier.set('Roots', null
+        , {
+          isCheckbox: true,
+          formGroupConfig: {
+            form: this.contactForm,
+            formName: 'roots',
+            updateOn: 'change',
+            validators: [Validators.required]
+          }
+        }
       ))
     ])
   }

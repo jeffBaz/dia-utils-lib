@@ -11,5 +11,7 @@ export class ModelOption {
   static setUniqueValue(lib: string): ModelOption {
     return new ModelOption(lib, lib, null);
   }
-
+  static setCheckboxValue(lib: string): ModelOption {
+    return new ModelOption(lib, '', null);
+  }
 }

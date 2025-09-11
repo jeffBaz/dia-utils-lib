@@ -12,13 +12,14 @@ import { InputDatePicker } from "../input-date-picker/input-date-picker";
 import { IsNumericDirective } from "../directives/is-numeric.directive";
 import { Select } from "../select/select";
 import { Textarea } from "../textarea/textarea";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @Component({
     selector: 'dia-dossier',
     standalone: true,
     templateUrl: './dossier.html',
     styleUrls: ['./dossier.css'],
-    imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, CommonModule, MatTooltipModule, Inputs, Select, IsNumericDirective, Textarea, InputDatePicker   ],
+    imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, CommonModule, MatTooltipModule, Inputs, Select, IsNumericDirective, Textarea, InputDatePicker, MatCheckboxModule   ],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -213,5 +214,21 @@ export class DossierBloc implements OnInit, OnChanges {
     }
     fgroup(){
         return new FormGroup({});
+    }
+    handleIndeterminate(item: Dossier, v?: ModelOption): boolean {
+        return false;
+    }
+    handleCheckedChange(checked: boolean, item: Dossier) {
+       /* if (item.possibleValues){
+            item.checkboxValues = item.possibleValues.filter(v=>v.value).map(v=>v.libelle);
+            item.model[item.field] = item.possibleValues.filter(v=>v.value).map(v=>v.libelle);
+        }else */
+        item.value = checked;
+        if (item.model && item.field) {
+            item.model[item.field] = checked;
+        }
+        if (item.onchange) {
+            item.onchange(checked);
+        }
     }
 }

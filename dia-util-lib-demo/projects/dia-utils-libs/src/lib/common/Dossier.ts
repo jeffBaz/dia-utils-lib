@@ -22,7 +22,7 @@ export class Dossier {
     model?: any;
     field?: any;
     data?: any;
-    value?: string | number;
+    value?: string | number|boolean;
     isNumber?: boolean;
     isDecimal?: boolean|undefined;
     isDate?: boolean;
@@ -46,6 +46,7 @@ export class Dossier {
     advancedCustoms?: IAdvancedCustom[];
     selectValues?: any[];
     placeholder?: string;
+    checkboxValues?: any[];
     getErrorMsg?: (_: Dossier) => {};
     // fix JIRA 1060
     sizeColumn?: number;
@@ -55,7 +56,8 @@ export class Dossier {
     isTextarea?: boolean;
     customClass?: string;
     fill?: boolean;
-    constructor(title:string, list:Dossier[], value:string|number) {
+    isCheckbox?: boolean;
+    constructor(title:string, list:Dossier[], value:string|number|boolean) {
         this.title = title;
         this.list = list;
         this.value = value;
