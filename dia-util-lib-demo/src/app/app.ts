@@ -81,9 +81,23 @@ export class App {
       (Dossier.set('Roots', null
         , {
           isCheckbox: true,
+          sizeColumn: 2,
           formGroupConfig: {
             form: this.contactForm,
             formName: 'roots',
+            updateOn: 'change',
+            validators: [Validators.required]
+          }
+        }
+      )),
+      (Dossier.set('textarea', null
+        , {
+          isTextarea: true,
+          fill: true,
+          sizeColumn: 2,
+          formGroupConfig: {
+            form: this.contactForm,
+            formName: 'txtArea',
             updateOn: 'change',
             validators: [Validators.required]
           }

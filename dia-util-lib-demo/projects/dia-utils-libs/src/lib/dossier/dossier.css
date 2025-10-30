@@ -89,6 +89,20 @@
             height: 1px;
         }
     }
+    :ng-deep{
+
+        .fill {
+            width: 100%;
+            
+            mat-form-field {
+                width: 100%;
+            }
+            
+            textarea {
+                width: 100%;
+            }
+        }
+    }
 }
 
 .returnLine {

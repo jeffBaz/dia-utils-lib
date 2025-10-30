@@ -29,7 +29,7 @@
                             </mat-form-field>
                             <div *ngIf="!item.hide">
                                 <div class="modifiable"
-                                    *ngIf="modifiable && !item.isDate && !item.custom && !item.isRadio && !item.isCheckbox &&  !item.selectValues && !item.advancedCustoms"
+                                    *ngIf="modifiable && !item.isDate && !item.custom && !item.isRadio && !item.isCheckbox &&  !item.selectValues && !item.advancedCustoms && !item.isTextarea"
                                     (click)="onclick(item)">
                                     <dia-input *ngIf="!item.formGroupConfig" [icon]="item.icon" appIsNumeric
                                         [disable]="!item.isNumber" [isDecimal]="item.isDecimal"
@@ -77,13 +77,12 @@
                                     <div class="modifiable" *ngIf="item.formGroupConfig">
                                         <form [formGroup]="item.formGroupConfig.form">
                                             <!--{{item.formGroupConfig.form.con trols[item.formGroupConfig.formName].errors|json}}-->
-                                            <dia-textarea [readonly]="item.disabled" appIsNumeric
-                                                [disabled]="!item.isNumber" [countDown]="item.countDown"
+                                            <dia-textarea [readonly]="item.disabled"  [countDown]="item.countDown"
                                                 [icon]="item.icon||''" [iconAction]="item.iconAction|| emptyfn"
-                                                (valueChange)="handleChange($event, item)"
                                                 [customFormat]="item.customFormat" [maxLength]="item.maxLength"
                                                 [placeholder]="item.placeholder? item.placeholder: item.title"
                                                 [name]="item?.formGroupConfig?.formName"
+                                                [formGroup]="item.formGroupConfig.form"
                                                 formControlName="{{item?.formGroupConfig?.formName}}"
                                                 [value]="handleValue(item)" (valueChange)="handleChange($event, item)"
                                                 [ngClass]="{emptyField: (item.title && item.title.indexOf('####')>-1), linkField: item.linkParam||item.onclick, disabled:item.disabled, fill:item.fill}"
