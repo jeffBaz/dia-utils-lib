@@ -20,4 +20,6 @@ export * from './lib/common/ITableState';
 export * from './lib/common/IAdvancedCustom';
 export * from './lib/common/IDossierItem'; 
 export * from './lib/common/IFormGroupConfig'; 
+export * from './lib/table/table';
+export * from './lib/common/ITableColumnDefinitionModel';
 

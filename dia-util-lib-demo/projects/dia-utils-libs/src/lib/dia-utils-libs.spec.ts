@@ -1,23 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { DiaUtilsLibsModule } from './dia-utils-libs.module';
 
-import { DiaUtilsLibs } from './dia-utils-libs';
-
-describe('DiaUtilsLibs', () => {
-  let component: DiaUtilsLibs;
-  let fixture: ComponentFixture<DiaUtilsLibs>;
-
+describe('DiaUtilsLibsModule', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DiaUtilsLibs]
+      imports: [DiaUtilsLibsModule]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(DiaUtilsLibs);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should compile module', () => {
+    const module = TestBed.inject(DiaUtilsLibsModule);
+    expect(module).toBeTruthy();
   });
 });

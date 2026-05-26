@@ -1,0 +1,37 @@
+<div class="table-container">
+  <div class="table-content" [ngClass]="titleOnTop">
+    <table mat-table [dataSource]="datasource" matSort (matSortChange)="sortData($event)"
+      matSortActive="numeroFL" matSortDirection="desc" matSortDisableClear
+      [matSortDisableClear]="true" class="mat-table-dossier-list">
+      <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.columnDef || ''">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!column.sort" class="{{ titleOnTop }}" [ngClass]="column.forbiddenScreens || ''">{{ column.header }}</th>
+        <td mat-cell *matCellDef="let row" (click)="oncellclick(column, row)"
+        class="{{ titleOnTop }} {{column && column.onclick ? 'clickable' : ''}} {{ column.class || '' }} class_{{ column.classEqualsRowValue && column.cell ? column.cell(row) : '' }}"
+        [ngClass]="column.forbiddenScreens || ''" [matTooltip]="column.tooltip && column.cell ? column.cell(row) : ''"
+          [matTooltipPosition]="'above'">
+          @if (column.custom) {
+            <div>
+              <ng-container *ngTemplateOutlet="tdTemplate; context: {$implicit:{row:row, column:column}}"></ng-container>
+            </div>
+          } @else {
+            @if (column.type) {
+              <mat-icon>{{ getColumnValue(column, row) }}</mat-icon>
+            } @else {
+              {{ getColumnValue(column, row) }}
+            }
+            @if (column.checkbox) {
+              <mat-checkbox [checked]="row.checked" (change)="oncheckclick(column, row)"></mat-checkbox>
+            }
+          }
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" [ngClass]="titleOnTop"></tr>
+      <tr mat-row [ngClass]="{selectedRow:selected && selected(row), clickable: selected}" (mouseover)="itemBeenRead(row)" (click)="_onRowClicked(row)"
+        (dblclick)="_onRowDblClicked(row)" *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div [ngClass]="{'pagination': true, 'hide-pagination': noPagination}">
+      <mat-paginator (page)="pageEvent = $event; pageSize = $event.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [pageSize]="pageSize"></mat-paginator>
+    </div>
+  </div>
+</div>

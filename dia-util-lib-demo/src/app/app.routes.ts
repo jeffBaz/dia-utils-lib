@@ -1,3 +1,4 @@
-import { Routes } from '@angular/router';
+// dia-util-lib-demo/src/app/app.routes.server.ts
+import { RenderMode, ServerRoute } from '@angular/ssr';
 
-export const routes: Routes = [];
+export const serverRoutes: ServerRoute[] = [];

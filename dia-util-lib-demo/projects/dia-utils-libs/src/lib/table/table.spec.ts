@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Inputs } from './input';
+import { Table } from './table';
 
-describe('Inputs', () => {
-  let component: Inputs;
-  let fixture: ComponentFixture<Inputs>;
+describe('Table', () => {
+  let component: Table;
+  let fixture: ComponentFixture<Table>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Inputs]
+      imports: [Table, BrowserAnimationsModule]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Inputs);
+    fixture = TestBed.createComponent(Table);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UtilsSelectComponent } from './select';
+import { Select } from './select';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('UtilsSelectComponent', () => {
-  let component: UtilsSelectComponent;
-  let fixture: ComponentFixture<UtilsSelectComponent>;
+describe('Select', () => {
+  let component: Select;
+  let fixture: ComponentFixture<Select>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UtilsSelectComponent, FormsModule, MatFormFieldModule, MatSelectModule]
+      imports: [Select, FormsModule, MatFormFieldModule, MatSelectModule, BrowserAnimationsModule]
     }).compileComponents();
-    fixture = TestBed.createComponent(UtilsSelectComponent);
+    fixture = TestBed.createComponent(Select);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

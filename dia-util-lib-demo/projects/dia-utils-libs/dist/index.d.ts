@@ -11,6 +11,9 @@ import * as i6 from '@angular/material/datepicker';
 import * as i7 from '@angular/material/tooltip';
 import { MatSelect } from '@angular/material/select';
 import { DateAdapter } from '@angular/material/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 declare class DiaUtilsLibsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<DiaUtilsLibsModule, never>;
@@ -29,7 +32,6 @@ declare class ModelOption {
     data: any;
     constructor(lib: string, val: string, dat?: any);
     static setUniqueValue(lib: string): ModelOption;
-    static setCheckboxValue(lib: string): ModelOption;
 }
 
 interface IFormGroupConfig {
@@ -62,7 +64,7 @@ declare class Dossier {
     model?: any;
     field?: any;
     data?: any;
-    value?: string | number | boolean;
+    value?: string | number;
     isNumber?: boolean;
     isDecimal?: boolean | undefined;
     isDate?: boolean;
@@ -86,7 +88,6 @@ declare class Dossier {
     advancedCustoms?: IAdvancedCustom[];
     selectValues?: any[];
     placeholder?: string;
-    checkboxValues?: any[];
     getErrorMsg?: (_: Dossier) => {};
     sizeColumn?: number;
     indexColumn?: number;
@@ -95,8 +96,7 @@ declare class Dossier {
     isTextarea?: boolean;
     customClass?: string;
     fill?: boolean;
-    isCheckbox?: boolean;
-    constructor(title: string, list: Dossier[], value: string | number | boolean);
+    constructor(title: string, list: Dossier[], value: string | number);
     static isDefined(val: any): boolean;
     static getEmptyDossier(): Dossier;
     static setByModel(title: string, model: any, field: string, custom?: any): {
@@ -162,8 +162,6 @@ declare class DossierBloc implements OnInit, OnChanges {
     handleFormattedValue(item: Dossier): string;
     handleDateValue(item: Dossier): Date | undefined;
     fgroup(): FormGroup<{}>;
-    handleIndeterminate(item: Dossier, v?: ModelOption): boolean;
-    handleCheckedChange(checked: boolean, item: Dossier): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<DossierBloc, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<DossierBloc, "dia-dossier", never, { "disabled": { "alias": "disabled"; "required": false; }; "modifiable": { "alias": "modifiable"; "required": false; }; "translateSuffix": { "alias": "translateSuffix"; "required": false; }; "nbColumns": { "alias": "nbColumns"; "required": false; }; "items": { "alias": "items"; "required": false; }; "ratifiable": { "alias": "ratifiable"; "required": false; }; "minrows": { "alias": "minrows"; "required": false; }; "transServ": { "alias": "transServ"; "required": false; }; "debug": { "alias": "debug"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
@@ -585,5 +583,96 @@ interface IDossierItem {
     children?: IDossierItem[];
 }
 
-export { ClickedOutsideDirective, DiaUtilsLibsModule, Dossier, DossierBloc, InputDatePicker, InputRangeDate, Inputs, IsNumericDirective, ModelOption, Scroll, Select, Textarea, Tiles };
-export type { IAdvancedCustom, IDossierItem, IFormGroupConfig, IFormatInput, ITableState, Tile };
+interface ITableColumnDefinitionModel {
+    columnDef?: string;
+    forbiddenScreens?: any;
+    header?: string;
+    sort?: boolean;
+    date?: boolean;
+    time?: boolean;
+    tooltip?: string;
+    cell?: (row: any) => any;
+    type?: string;
+    isNumeric?: boolean;
+    onclick?: (row: any) => any;
+    requestable?: IRequestable;
+    hide?: boolean;
+    specificSort?: (a: any, b: any, direction: any) => number;
+    checkbox?: (row: any) => any;
+    isDynamicSearch?: boolean;
+    class?: string;
+    classEqualsRowValue?: boolean;
+    custom?: any;
+}
+interface IRequestable {
+    controlName?: string;
+    classNames?: string[];
+    possibleValues?: string[];
+    placeholder?: string;
+    modelName?: string;
+    isNumeric?: boolean;
+    isDateRange?: boolean;
+    isDate?: boolean;
+    isPerimetre?: boolean;
+    isMonoSelect?: boolean;
+    isMultiSelect?: boolean;
+    isInput?: boolean;
+    format?: any;
+    maxLength?: any;
+}
+
+declare class Table implements OnChanges, OnInit, AfterViewInit {
+    source: any[];
+    pageSize: number;
+    selected: ((row?: any) => boolean) | undefined;
+    noPagination: boolean;
+    loading: boolean;
+    dynamicColumns: ITableColumnDefinitionModel[];
+    filterValue: any;
+    paginator: MatPaginator;
+    sort: MatSort;
+    rowClicked: EventEmitter<any>;
+    rowDblClicked: EventEmitter<any>;
+    sourceChange: EventEmitter<any>;
+    paginationChanged: EventEmitter<ITableState>;
+    sortChanged: EventEmitter<ITableState>;
+    isTitleOnTop: boolean;
+    requestCount: number;
+    isElasticSearch: boolean;
+    trServ: any;
+    tdTemplate: any;
+    titleOnTop: string;
+    dataIsReady: boolean;
+    colsDefIsReady: boolean;
+    pageEvent: PageEvent;
+    displayedColumns: string[];
+    datasource: MatTableDataSource<any, MatPaginator>;
+    constructor();
+    ngOnInit(): void;
+    ngAfterViewInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    gets(obs: any): any;
+    getA(obs: any): any[];
+    updateFilterPredicate(): void;
+    filterdishit(data: any, filter: string): boolean;
+    getClass(arr: string[]): string;
+    _onRowClicked(row: any): void;
+    _onRowDblClicked(row: any): void;
+    oncellclick(column: ITableColumnDefinitionModel, row: any): void;
+    oncheckclick(column: ITableColumnDefinitionModel, row: any): void;
+    itemBeenRead(item: any): void;
+    mapTimestampToDate(timestamp: number): string | null;
+    mapTimestampToTime(timestamp: number): string | undefined;
+    getColumnValue(column: ITableColumnDefinitionModel, row: any): any;
+    compareFunction(a: string, b: string): 1 | -1;
+    compare(a: string, b: string, d: string): number;
+    string2number(int: any): number;
+    compareNumber(a: any, b: any, d: string): number;
+    sortData(sort: Sort): void;
+    getCurrentState(): ITableState;
+    static ɵfac: i0.ɵɵFactoryDeclaration<Table, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<Table, "dia-table", never, { "source": { "alias": "source"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "noPagination": { "alias": "noPagination"; "required": false; }; "loading": { "alias": "loading"; "required": false; }; "dynamicColumns": { "alias": "dynamicColumns"; "required": false; }; "filterValue": { "alias": "filterValue"; "required": false; }; "isTitleOnTop": { "alias": "isTitleOnTop"; "required": false; }; "requestCount": { "alias": "requestCount"; "required": false; }; "isElasticSearch": { "alias": "isElasticSearch"; "required": false; }; "trServ": { "alias": "trServ"; "required": false; }; "tdTemplate": { "alias": "tdTemplate"; "required": false; }; }, { "rowClicked": "rowClicked"; "rowDblClicked": "rowDblClicked"; "sourceChange": "sourceChange"; "paginationChanged": "paginationChanged"; "sortChanged": "sortChanged"; }, never, never, true, never>;
+}
+
+export { ClickedOutsideDirective, DiaUtilsLibsModule, Dossier, DossierBloc, InputDatePicker, InputRangeDate, Inputs, IsNumericDirective, ModelOption, Scroll, Select, Table, Textarea, Tiles };
+export type { IAdvancedCustom, IDossierItem, IFormGroupConfig, IFormatInput, IRequestable, ITableColumnDefinitionModel, ITableState, Tile };

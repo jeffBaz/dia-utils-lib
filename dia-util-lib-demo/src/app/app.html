@@ -12,6 +12,11 @@
       test: {{ test }}
       test1: {{ test1 | json }}
       test2: {{ test2 | json }}
+
+      <hr style="margin: 20px 0; border: 1px solid #ddd;">
+      <h2>Test de la Table</h2>
+      <dia-table [source]="tableSource" [dynamicColumns]="tableColumns"></dia-table>
+      <hr style="margin: 20px 0; border: 1px solid #ddd;">
     </div>
     <!--ng-container *ngTemplateOutlet="itemTpl; context: { $implicit: 'tile', index: 0 }"></ng-container>
     <ng-container *ngTemplateOutlet="itemTpl2; context: { $implicit: 'tile', index: 0 }"></ng-container-->
